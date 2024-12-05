@@ -1,10 +1,11 @@
 <?php 
 
-class _404
+//  class
+class Login
 {
     use Controller;
     public function index()
     {
-        echo "404 page is not found controller";
+        $this->view('login');
     }
 }

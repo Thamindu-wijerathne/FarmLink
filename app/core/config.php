@@ -2,7 +2,7 @@
 
 if($_SERVER['SERVER_NAME'] == 'localhost')
 {
-    define('ROOT', 'http://localhost/mvc/public');
+    define('ROOT', 'http://localhost/FarmLink/public');
     
     // database configaration
     define('DBNAME', 'farmlink');

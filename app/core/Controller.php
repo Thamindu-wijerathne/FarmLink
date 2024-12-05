@@ -13,4 +13,9 @@ Trait Controller
             require $filename;
         }
     }
+
+    public function renderComponent($component, $componentData = [])
+    {
+        require "../app/views/components/$component.view.php";
+    }
 }
