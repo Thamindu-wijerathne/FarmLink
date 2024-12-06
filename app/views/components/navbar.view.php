@@ -32,6 +32,6 @@
         style="float: right; color: white; text-decoration: none; padding: 14px 20px; text-align: center; margin-right: 5px;" 
         onmouseover="this.style.backgroundColor='#575757'; this.style.color='white';" 
         onmouseout="this.style.backgroundColor='transparent'; this.style.color='white';">
-        Login
+        <button  onclick="showPopup('login')">Login</button>
     </a>
 </div>
