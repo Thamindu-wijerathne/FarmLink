@@ -7,6 +7,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
     // database configaration
     define('DBNAME', 'farmlink');
     define('DBHOST', 'localhost');
+    define('BASE_URL', 'http://localhost/FarmLink');
     define('DBUSER', 'root');
     define('DBPASS', '');
     define('DBDRIVER', '');

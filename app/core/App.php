@@ -10,13 +10,14 @@ class App
     {
         $URL = $_GET['url'] ?? 'home';
         $URL = explode("/", trim($URL,'/'));
+        // show($URL);     
         return $URL;
     }
 
     public function loadController()
     {
         $URL = $this->splitURL();
-
+        // show($URL);
         //  select controller method
         $filename = "../app/controllers/".ucfirst($URL[0]).".php";
         if(file_exists($filename))
