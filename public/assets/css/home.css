@@ -3,19 +3,20 @@ body, html {
   padding: 0;
   height: 100%;
 }
-.bg-image-container {
+/* .bg-image-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; /* Places the background image behind other elements */
+  z-index: -1; 
 }
 .bg-image-container img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the image covers the background */
-}
+  object-fit: cover; 
+} */
+ 
 .content {
   position: relative; /* Ensures components stack on the background */
   text-align: center;

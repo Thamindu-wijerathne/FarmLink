@@ -15,6 +15,7 @@ class Home
             $password = $_POST['password'] ?? "no data";
             $confirmPassword = $_POST['confirmPassword'] ?? "no data";
             $form_type = $_POST['form_type'] ?? NULL;
+            $user_type = $_POST['userType'] ?? NULL;
 
             // echo "<script>console.log('button pressed');</script>";
 
@@ -23,13 +24,14 @@ class Home
                 "email" => $email,
                 "password" => $password,
                 "confirmPassword" => $confirmPassword,
-                "form_type"=>$form_type
+                "form_type" => $form_type,
+                "user_type" => $user_type
             ];
 
             // Send data to console
-            // echo "<script>
-            //     console.log('Form Data: " . json_encode($data) . "');
-            // </script>";
+            echo "<script>
+                console.log('Form Data: " . json_encode($data) . "');
+            </script>";
 
             if ($data['form_type'] == 'login') {
                 $userDetail = $user->findUser($data);
@@ -56,12 +58,12 @@ class Home
                     // Assuming you have a User model
                     // require_once 'models/User.php';
                     $user->addUser($data);
-                    // Redirect or show success message
-                    header("Location: success.php");
+                    // // Redirect or show success message
+                    header("Location:". ROOT ."/Home");
                     exit();
                 } else {
                     // Handle password mismatch
-                    // echo "Passwords do not match.";
+                    // $errorMessage = "Passwords do not match."; // Set the error message
                 }
             }
 

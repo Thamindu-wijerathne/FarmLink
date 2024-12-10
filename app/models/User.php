@@ -15,7 +15,7 @@ class User
         $name = $data['user_name'];
         $email = $data['email'];
         $password = $data['password'];
-        $role = 'Farmer';
+        $role = $data['user_type'];
 
         $query = "
             INSERT INTO $this->table (user_name, email, password, role)
