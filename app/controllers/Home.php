@@ -47,6 +47,8 @@ class Home
                     header("Location:". ROOT ."/Admin");
                 } else if ($_SESSION['user']["role"] == 'Seller') {
                     header("Location:". ROOT . "/Seller");
+                } else {
+                    header("Location:". ROOT ."/Home");
                 }
             }
             
