@@ -43,6 +43,11 @@ class Home
                         if ($_SESSION['user']["role"] == 'Farmer') {
                             header("Location:" . ROOT . "/Home/addDetailFarmer");
                             exit();
+                        } else if ($_SESSION['user']["role"] == 'Seller') {
+                            header("Location:" . ROOT . "/Home/addDetailSeller");
+                            exit();
+                        } else {
+
                         }
                     } else {
                         switch ($_SESSION['user']["role"]) {
@@ -105,4 +110,44 @@ class Home
         
         $this->view('addDetailFarmer');
     }
+
+
+    public function addDetailSeller()
+    {
+        $seller = new Seller();
+        $user = new User();
+    
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Main seller data
+            $data = [
+                "nic" => $_POST['nic'],
+                "address" => $_POST['address'],
+                "telephone" => $_POST['telephone'],
+                "about" => $_POST['about'],
+                "birthday" => $_POST['birthday'],
+                "user_id" => $_POST['user_id']
+            ];
+    
+            // Handle vehicle data
+            if (isset($_POST['vehicle']) && is_array($_POST['vehicle'])) {
+                $vehicles = [];
+                foreach ($_POST['vehicle'] as $vehicleData) {
+                    $vehicles[] = [
+                        'type' => $vehicleData['type'],
+                        'registration' => $vehicleData['registration']
+                    ];
+                }
+                $data['vehicles'] = $vehicles; // Add vehicles data to the main array
+            }
+    
+            // Debug output to check the data being passed
+            echo "<script>console.log(" . json_encode($data) . ");</script>";
+    
+            // Further processing for storing data in the database could go here
+        }
+    
+        // Load the view (optional)
+        $this->view('addDetailSeller');
+    }
+    
 }
