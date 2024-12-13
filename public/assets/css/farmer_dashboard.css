@@ -1,0 +1,22 @@
+.section-1 {
+    display: flex;
+    justify-content: space-between; /* Distributes equal space between the cards */
+    gap: 20px; /* Optional: Adds consistent spacing between cards */
+}
+
+.card-1, .card-2, .card-3 {
+    width: 30%;
+    padding: 80px 0px;
+    margin-top: 50px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #2bcb00;
+}
+
+.card-1 {
+    margin-left: 50px;
+}
+
+.card-3 {
+    margin-right: 50px;
+}

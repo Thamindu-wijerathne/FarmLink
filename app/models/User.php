@@ -40,5 +40,12 @@ class User
         return $this->execute($query);
     }
 
+    public function updateStatus($userID) {
+        $query = "
+            UPDATE $this->table SET status = 1 WHERE user_id = $userID
+        ";
+
+        return $this->execute($query);
+    }
 
 }

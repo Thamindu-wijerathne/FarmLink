@@ -1,23 +1,22 @@
 <?php 
 
-// landing page class
+// Landing page class
 class Home
 {
     use Controller;
+
     public function index()
     {
         $user = new User();
-        // echo "<script>console.log('Page loaded');</script>";
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            // Retrieve form data
             $username = $_POST['username'] ?? "no data";
             $email = $_POST['email'] ?? "no data";
             $password = $_POST['password'] ?? "no data";
             $confirmPassword = $_POST['confirmPassword'] ?? "no data";
             $form_type = $_POST['form_type'] ?? NULL;
             $user_type = $_POST['userType'] ?? NULL;
-
-            // echo "<script>console.log('button pressed');</script>";
 
             $data = [
                 "user_name" => $username,
@@ -28,50 +27,82 @@ class Home
                 "user_type" => $user_type
             ];
 
-            // Send data to console
-            echo "<script>
-                console.log('Form Data: " . json_encode($data) . "');
-            </script>";
+            // Log data to console
+            echo "<script>console.log(" . json_encode($data) . ");</script>";
 
+            // Handle login
             if ($data['form_type'] == 'login') {
                 $userDetail = $user->findUser($data);
-                
-                // Assuming findUser returns an array, store the first user
-                $_SESSION['user'] = $userDetail[0]; // Save the first user in session
-                echo "<script>console.log('Session Data: " . json_encode($_SESSION) . "');</script>";
-            
-                if ($_SESSION['user']["role"] == 'Farmer') {
-                    header("Location:". ROOT ."/Farmer");
-                    exit();
-                } else if ($_SESSION['user']["role"] == 'Admin') {
-                    header("Location:". ROOT ."/Admin");
-                } else if ($_SESSION['user']["role"] == 'Seller') {
-                    header("Location:". ROOT . "/Seller");
+
+                if (!empty($userDetail)) {
+                    $_SESSION['user'] = $userDetail[0];
+                    echo "<script>console.log(" . json_encode($_SESSION) . ");</script>";
+
+                    // Redirect based on status and role
+                    if (isset($_SESSION['user']['status']) && $_SESSION['user']['status'] == 0) {
+                        if ($_SESSION['user']["role"] == 'Farmer') {
+                            header("Location:" . ROOT . "/Home/addDetailFarmer");
+                            exit();
+                        }
+                    } else {
+                        switch ($_SESSION['user']["role"]) {
+                            case 'Farmer':
+                                header("Location:" . ROOT . "/Farmer");
+                                break;
+                            case 'Admin':
+                                header("Location:" . ROOT . "/Admin");
+                                break;
+                            case 'Seller':
+                                header("Location:" . ROOT . "/Seller");
+                                break;
+                            default:
+                                header("Location:" . ROOT . "/Home");
+                        }
+                        exit();
+                    }
                 } else {
-                    header("Location:". ROOT ."/Home");
-                }
-            }
-            
-            
-            if ($data['form_type'] == 'signup') {
-                // Validate and process the data
-                if ($password === $confirmPassword) {
-                    // Save the data to the model
-                    // Assuming you have a User model
-                    // require_once 'models/User.php';
-                    $user->addUser($data);
-                    // // Redirect or show success message
-                    header("Location:". ROOT ."/Home");
+                    echo "<script>alert('User not found');</script>";
+                    header("Location:" . ROOT . "/Home");
                     exit();
-                } else {
-                    // Handle password mismatch
-                    // $errorMessage = "Passwords do not match."; // Set the error message
                 }
             }
 
+            // Handle signup
+            elseif ($data['form_type'] == 'signup') {
+                if ($password === $confirmPassword) {
+                    $user->addUser($data);
+                    header("Location:" . ROOT . "/Home");
+                    exit();
+                } else {
+                    echo "<script>alert('Passwords do not match');</script>";
+                }
+            }
         }
+
         $this->view('home');
     }
+
+    public function addDetailFarmer()
+    {
+        $farmer = new Farmer();
+        $user = new User();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+            $data = [
+                "nic" => $_POST['nic'],
+                "address" => $_POST['address'],
+                "telephone" => $_POST['telephone'],
+                "about" => $_POST['about'],
+                "birthday" => $_POST['birthday'],
+                "user_id" => $_POST['user_id']
+            ];
+
+            echo "<script>console.log(" . json_encode($data) . ");</script>";
+            $farmer->addFarmer($data);
+            $user->updateStatus($_SESSION['user']['user_id']);
+            header("Location:". ROOT ."/Farmer");
+        }
+        
+        $this->view('addDetailFarmer');
+    }
 }
-
-
