@@ -116,6 +116,7 @@ class Home
     {
         $seller = new Seller();
         $user = new User();
+        $vehicle = new Vehicle();
     
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Main seller data
@@ -127,23 +128,33 @@ class Home
                 "birthday" => $_POST['birthday'],
                 "user_id" => $_POST['user_id']
             ];
+
+            $seller->addSeller($data);
+            $sellerID = $seller->findSellerID($_SESSION['user']['user_id']);
+            // echo "<script>console.log('Seller :". json_encode($sellerID) . "');</script>";
     
             // Handle vehicle data
             if (isset($_POST['vehicle']) && is_array($_POST['vehicle'])) {
                 $vehicles = [];
                 foreach ($_POST['vehicle'] as $vehicleData) {
+                    // Append each vehicle's data to the $vehicles array
                     $vehicles[] = [
                         'type' => $vehicleData['type'],
-                        'registration' => $vehicleData['registration']
+                        'registration' => $vehicleData['registration'],
+                        'seller_NIC' => $sellerID[0]['NIC']
                     ];
                 }
-                $data['vehicles'] = $vehicles; // Add vehicles data to the main array
+                // Now $vehicles contains all the vehicle data and can be passed to addVehicle
+                $vehicle->addVehicle($vehicles);
             }
+            
     
             // Debug output to check the data being passed
-            echo "<script>console.log(" . json_encode($data) . ");</script>";
-    
+            // echo "<script>console.log(" . json_encode($data) . ");</script>";
+
             // Further processing for storing data in the database could go here
+            $user->updateStatus($_SESSION['user']['user_id']);
+            header("Location:". ROOT ."/Seller");
         }
     
         // Load the view (optional)

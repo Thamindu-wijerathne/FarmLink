@@ -63,6 +63,14 @@
             height: 100px;
         }
 
+        select {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
         .btn-submit {
             margin-top: 20px;
             padding: 10px 20px;
@@ -120,7 +128,7 @@
                 <!-- Vehicle details fields will be dynamically added here -->
             </div>
 
-            <input type="hidden" value=<?= $_SESSION['user']['user_id'] ?> id="user_id" name="user_id">
+            <input type="hidden" value="<?= $_SESSION['user']['user_id'] ?>" id="user_id" name="user_id">
             
             <button type="submit" class="btn-submit">Submit</button>
         </form>
@@ -128,7 +136,7 @@
 
     <script>
         // Handle vehicle details based on number of vehicles
-        document.getElementById("num_vehicles").addEventListener("input", function() {
+        document.getElementById("num_vehicles").addEventListener("input", function () {
             const numVehicles = parseInt(this.value);
             const vehicleContainer = document.getElementById("vehicleDetails");
             vehicleContainer.innerHTML = ""; // Clear existing vehicle fields
@@ -140,7 +148,14 @@
                     vehicleDiv.classList.add("vehicle");
                     vehicleDiv.innerHTML = `
                         <label for="vehicle_${i}_type">Vehicle ${i + 1} Type</label>
-                        <input type="text" id="vehicle_${i}_type" name="vehicle[${i}][type]" placeholder="Enter vehicle type" required>
+                        <select id="vehicle_${i}_type" name="vehicle[${i}][type]" required>
+                            <option value="" disabled selected>Select vehicle type</option>
+                            <option value="Lorry">Lorry</option>
+                            <option value="Car">Car</option>
+                            <option value="Cab">Cab</option>
+                            <option value="Threewheel">Threewheel</option>
+                            <option value="Bicycle">Bicycle</option>
+                        </select>
                         
                         <label for="vehicle_${i}_registration">Vehicle ${i + 1} Registration Number</label>
                         <input type="text" id="vehicle_${i}_registration" name="vehicle[${i}][registration]" placeholder="Enter registration number" required>
