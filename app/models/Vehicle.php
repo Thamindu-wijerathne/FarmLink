@@ -1,6 +1,6 @@
 <?php
 
-// User class
+// Vehicle class
 
 class Vehicle
 {

@@ -1,6 +1,6 @@
 <?php
 
-// User class
+// Seller class
 
 class Seller
 {

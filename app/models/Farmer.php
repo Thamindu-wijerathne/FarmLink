@@ -1,6 +1,6 @@
 <?php
 
-// User class
+// Farmer class
 
 class Farmer
 {
