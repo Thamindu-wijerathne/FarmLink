@@ -7,6 +7,12 @@
 </head>
 
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
         .section-1 {
             display: flex;
             justify-content: space-between; /* Distributes equal space between the cards */

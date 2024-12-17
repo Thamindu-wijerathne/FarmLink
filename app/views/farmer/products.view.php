@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <style>
+
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }    
     /* Product Cards Layout */
     .product-cards {
         display: flex;
